@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="java_core_api.api_java_core.mapper.TccFormularioMapper">
+
+    <resultMap id="formularioResultMap" type="java_core_api.api_java_core.domain.TccFormulario">
+        <id property="id" column="id"/>
+        <result property="tccId" column="tcc_id"/>
+        <result property="nomeCompleto" column="nome_completo"/>
+        <result property="curso" column="curso"/>
+        <result property="instituicao" column="instituicao"/>
+        <result property="semestre" column="semestre"/>
+        <result property="tituloProvisorio" column="titulo_provisorio"/>
+        <result property="areaConhecimento" column="area_conhecimento"/>
+        <result property="descricaoTema" column="descricao_tema"/>
+        <result property="problema" column="problema"/>
+        <result property="objetivoGeral" column="objetivo_geral"/>
+        <result property="objetivosEspecificos" column="objetivos_especificos"/>
+        <result property="importancia" column="importancia"/>
+        <result property="tipoPesquisa" column="tipo_pesquisa"/>
+        <result property="comoConduzir" column="como_conduzir"/>
+        <result property="populacao" column="populacao"/>
+        <result property="amostra" column="amostra"/>
+        <result property="instrumentosColeta" column="instrumentos_coleta"/>
+        <result property="autores" column="autores"/>
+        <result property="conceitosChave" column="conceitos_chave"/>
+        <result property="teoriasModelos" column="teorias_modelos"/>
+    </resultMap>
+
+    <select id="listarTodos" resultMap="formularioResultMap">
+        SELECT * FROM admin_tcc.tcc_formulario
+    </select>
+
+    <insert id="salvar" parameterType="java_core_api.api_java_core.domain.TccFormulario" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO admin_tcc.tcc_formulario (
+        tcc_id, nome_completo, curso, instituicao, semestre,
+        titulo_provisorio, area_conhecimento, descricao_tema,
+        problema, objetivo_geral, objetivos_especificos, importancia,
+        tipo_pesquisa, como_conduzir, populacao, amostra,
+        instrumentos_coleta, autores, conceitos_chave, teorias_modelos
+        ) VALUES (
+        #{tccId}, #{nomeCompleto}, #{curso}, #{instituicao}, #{semestre},
+        #{tituloProvisorio}, #{areaConhecimento}, #{descricaoTema},
+        #{problema}, #{objetivoGeral}, #{objetivosEspecificos}, #{importancia},
+        #{tipoPesquisa}, #{comoConduzir}, #{populacao}, #{amostra},
+        #{instrumentosColeta}, #{autores}, #{conceitosChave}, #{teoriasModelos}
+        )
+    </insert>
+
+    <update id="atualizar" parameterType="java_core_api.api_java_core.domain.TccFormulario">
+        UPDATE admin_tcc.tcc_formulario SET
+        nome_completo = #{nomeCompleto}, curso = #{curso}, instituicao = #{instituicao},
+        semestre = #{semestre}, titulo_provisorio = #{tituloProvisorio},
+        area_conhecimento = #{areaConhecimento}, descricao_tema = #{descricaoTema},
+        problema = #{problema}, objetivo_geral = #{objetivoGeral},
+        objetivos_especificos = #{objetivosEspecificos}, importancia = #{importancia},
+        tipo_pesquisa = #{tipoPesquisa}, como_conduzir = #{comoConduzir},
+        populacao = #{populacao}, amostra = #{amostra},
+        instrumentos_coleta = #{instrumentosColeta}, autores = #{autores},
+        conceitos_chave = #{conceitosChave}, teorias_modelos = #{teoriasModelos}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deletar" parameterType="long">
+        DELETE FROM admin_tcc.tcc_formulario WHERE id = #{id}
+    </delete>
+
+    <select id="buscarPorId" resultMap="formularioResultMap">
+        SELECT * FROM admin_tcc.tcc_formulario WHERE id = #{id}
+    </select>
+
+    <select id="buscarPorTccId" resultMap="formularioResultMap">
+        SELECT * FROM admin_tcc.tcc_formulario WHERE tcc_id = #{tccId}
+    </select>
+
+</mapper>

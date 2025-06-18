@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="java_core_api.api_java_core.mapper.TccMapper">
+
+    <resultMap id="tccResultMap" type="java_core_api.api_java_core.domain.Tcc">
+        <id property="id" column="id"/>
+        <result property="usuarioId" column="usuario_id"/>
+        <result property="titulo" column="titulo"/>
+        <result property="conteudo" column="conteudo"/>
+        <result property="status" column="status"/>
+        <result property="criadoEm" column="criado_em"/>
+    </resultMap>
+
+    <select id="listarTodos" resultMap="tccResultMap">
+        SELECT * FROM admin_tcc.tccs
+    </select>
+
+    <insert id="salvar" parameterType="java_core_api.api_java_core.domain.Tcc" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO admin_tcc.tccs (usuario_id, titulo, conteudo, status)
+        VALUES (#{usuarioId}, #{titulo}, #{conteudo}, #{status})
+    </insert>
+
+    <update id="atualizar" parameterType="java_core_api.api_java_core.domain.Tcc">
+        UPDATE admin_tcc.tccs
+        SET
+        titulo = #{titulo},
+        conteudo = #{conteudo},
+        status = #{status},
+        criado_em = #{criadoEm}
+        WHERE id = #{id}
+    </update>
+
+
+    <delete id="deletar" parameterType="long">
+        DELETE FROM admin_tcc.tccs WHERE id = #{id}
+    </delete>
+
+    <select id="buscarPorId" resultMap="tccResultMap">
+        SELECT * FROM admin_tcc.tccs WHERE id = #{id}
+    </select>
+
+</mapper>
